@@ -67,7 +67,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ListadoSucursales.aspx" />
     <Content Include="Recursos\global.js" />
     <Content Include="Recursos\header.css" />
     <Content Include="Recursos\header.js" />
@@ -75,14 +74,14 @@
     <Content Include="Recursos\index.js" />
     <Content Include="SeleccionarSucursales.aspx" />
     <Content Include="Web.config" />
+    <Content Include="MostrarSeleccionado.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ListadoSucursales.aspx.cs">
-      <DependentUpon>ListadoSucursales.aspx</DependentUpon>
+    <Compile Include="MostrarSeleccionado.spx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ListadoSucursales.aspx.designer.cs">
-      <DependentUpon>ListadoSucursales.aspx</DependentUpon>
+    <Compile Include="MostrarSeleccionado.spx.designer.cs">
+      <DependentUpon>MostrarSeleccionado.spx.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeleccionarSucursales.aspx.cs">
@@ -91,6 +90,13 @@
     </Compile>
     <Compile Include="SeleccionarSucursales.aspx.designer.cs">
       <DependentUpon>SeleccionarSucursales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>MostrarSeleccionado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>MostrarSeleccionado.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

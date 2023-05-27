@@ -5,10 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace TrabajoPractico7 {
-    public partial class SeleccionarSucursales : System.Web.UI.Page {
-        protected void Page_Load(object sender, EventArgs e) {
+namespace TrabajoPractico7
+{
+	public partial class SeleccionarSucursales1 : System.Web.UI.Page
+	{
+		protected void Page_Load(object sender, EventArgs e)
+		{
 
-        }
-    }
+		}
+	}
 }
