@@ -31,7 +31,14 @@ namespace TrabajoPractico7.Clases {
             return con.Response.ErrorFound
                 ? con.Response
                 : con.FetchData(
-                    query: $"SELECT * FROM [{Table}]"
+                    query: $"SELECT [{Columns.Id}], " +
+                           $"[{Columns.Nombre}], " +
+                           $"[{Columns.Descripcion}], " +
+                           $"[{Columns.Horario}], " +
+                           $"[{Columns.Provincia}], " +
+                           $"[{Columns.Direccion}], " +
+                           $"REPLACE([{Columns.Imagen}], '~', '') as [{Columns.Imagen}] " +
+                           $"FROM [{Table}]"
                     );
         }
         public static Response FilterByProvinceId(int provinceId) {
@@ -39,7 +46,15 @@ namespace TrabajoPractico7.Clases {
             return con.Response.ErrorFound
                 ? con.Response
                 : con.FetchData(
-                    query: $"SELECT * FROM [{Table}] WHERE [{Columns.Provincia}] = @id",
+                    query: $"SELECT [{Columns.Id}], " +
+                           $"[{Columns.Nombre}], " +
+                           $"[{Columns.Descripcion}], " +
+                           $"[{Columns.Horario}], " +
+                           $"[{Columns.Provincia}], " +
+                           $"[{Columns.Direccion}], " +
+                           $"REPLACE([{Columns.Imagen}], '~', '') as [{Columns.Imagen}] " +
+                           $"FROM [{Table}] " +
+                           $"WHERE [{Columns.Provincia}] = @id",
                     parameters: new Dictionary<string, object> {
                         { "@id", provinceId }
                     });
