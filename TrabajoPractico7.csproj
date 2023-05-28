@@ -77,6 +77,10 @@
     <Content Include="MostrarSeleccionado.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\Connection.cs" />
+    <Compile Include="Clases\Provincia.cs" />
+    <Compile Include="Clases\Response.cs" />
+    <Compile Include="Clases\Sucursal.cs" />
     <Compile Include="MostrarSeleccionado.spx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
