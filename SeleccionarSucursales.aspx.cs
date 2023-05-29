@@ -23,5 +23,11 @@ namespace TrabajoPractico7
                            
             }
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string text = TextBox1.Text;
+            SqlDataSource2.SelectCommand = "SELECT * FROM Sucursal WHERE NombreSucursal LIKE '" + text + "%'";
+        }
     }
 }
