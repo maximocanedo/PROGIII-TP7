@@ -31,75 +31,17 @@
 </head>
 <body>
     <form id="form1" class="centered-form" runat="server">
-        <br />
-        <h1>Seleccionar sucursales</h1>
-        <br />
-        <asp:ListView ID="ListView1" runat="server" DataKeyNames="Id_Sucursal" DataSourceID="SqlDataSource1">
-            <EditItemTemplate>
-                <span style="">Id_Sucursal:
-                <asp:Label ID="Id_SucursalLabel1" runat="server" Text='<%# Eval("Id_Sucursal") %>' />
-                <br />
-                NombreSucursal:
-                <asp:TextBox ID="NombreSucursalTextBox" runat="server" Text='<%# Bind("NombreSucursal") %>' />
-                <br />
-                DescripcionSucursal:
-                <asp:TextBox ID="DescripcionSucursalTextBox" runat="server" Text='<%# Bind("DescripcionSucursal") %>' />
-                <br />
-                Id_HorarioSucursal:
-                <asp:TextBox ID="Id_HorarioSucursalTextBox" runat="server" Text='<%# Bind("Id_HorarioSucursal") %>' />
-                <br />
-                Id_ProvinciaSucursal:
-                <asp:TextBox ID="Id_ProvinciaSucursalTextBox" runat="server" Text='<%# Bind("Id_ProvinciaSucursal") %>' />
-                <br />
-                DireccionSucursal:
-                <asp:TextBox ID="DireccionSucursalTextBox" runat="server" Text='<%# Bind("DireccionSucursal") %>' />
-                <br />
-                URL_Imagen_Sucursal:
-                <asp:TextBox ID="URL_Imagen_SucursalTextBox" runat="server" Text='<%# Bind("URL_Imagen_Sucursal") %>' />
-                <br />
-                <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
-                <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
-                <br />
-                <br />
-                </span>
-            </EditItemTemplate>
+
+        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+
+        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+        <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
+        <asp:ListView ID="ListView1" runat="server" DataKeyNames="Id_Provincia" DataSourceID="SqlDataSource1">
             <EmptyDataTemplate>
                 <span>No data was returned.</span>
             </EmptyDataTemplate>
-            <InsertItemTemplate>
-                <span style="">NombreSucursal:
-                <asp:TextBox ID="NombreSucursalTextBox" runat="server" Text='<%# Bind("NombreSucursal") %>' />
-                <br />
-                DescripcionSucursal:
-                <asp:TextBox ID="DescripcionSucursalTextBox" runat="server" Text='<%# Bind("DescripcionSucursal") %>' />
-                <br />
-                Id_HorarioSucursal:
-                <asp:TextBox ID="Id_HorarioSucursalTextBox" runat="server" Text='<%# Bind("Id_HorarioSucursal") %>' />
-                <br />
-                Id_ProvinciaSucursal:
-                <asp:TextBox ID="Id_ProvinciaSucursalTextBox" runat="server" Text='<%# Bind("Id_ProvinciaSucursal") %>' />
-                <br />
-                DireccionSucursal:
-                <asp:TextBox ID="DireccionSucursalTextBox" runat="server" Text='<%# Bind("DireccionSucursal") %>' />
-                <br />
-                URL_Imagen_Sucursal:
-                <asp:TextBox ID="URL_Imagen_SucursalTextBox" runat="server" Text='<%# Bind("URL_Imagen_Sucursal") %>' />
-                <br />
-                <asp:Button ID="InsertButton" runat="server" CommandName="Insert" Text="Insert" />
-                <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Clear" />
-                <br />
-                <br />
-                </span>
-            </InsertItemTemplate>
             <ItemTemplate>
-                <div class="card" style="width: 18rem;">
-                  <img src="<%# Eval("URL_Imagen_Sucursal") %>" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title"><%# Eval("NombreSucursal") %></h5>
-                    <p class="card-text"><%# Eval("DescripcionSucursal") %></p>
-                    <asp:LinkButton runat="server" href="#" CommandName="Select" class="btn btn-primary">Seleccionar</asp:LinkButton>
-                  </div>
-                </div>
+                    <asp:Button ID="btnSeleccionarProvincia" CommandName="Filtrar" CommandArgument='<%# Eval("Id_Provincia") %>' Text='<%# Eval("DescripcionProvincia") %>' runat="server" OnClick="btnSeleccionarProvincia_Click" OnCommand="btnSeleccionarProvincia_Command" />  
             </ItemTemplate>
             <LayoutTemplate>
                 <div id="itemPlaceholderContainer" runat="server" style="">
@@ -108,19 +50,64 @@
                 <div style="">
                 </div>
             </LayoutTemplate>
-            <SelectedItemTemplate>
-                <div class="card text-bg-primary" style="width: 18rem;">
-                  <img src="<%# Eval("URL_Imagen_Sucursal") %>" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title"><%# Eval("NombreSucursal") %></h5>
-                    <p class="card-text"><%# Eval("DescripcionSucursal") %></p>
-                    <asp:LinkButton runat="server" href="#" CommandName="Select" class="btn btn-light">Seleccionar</asp:LinkButton>
-                  </div>
-                </div>
-            </SelectedItemTemplate>
         </asp:ListView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BDSucursalesConnectionString %>" SelectCommand="SELECT [Id_Sucursal], [NombreSucursal], [DescripcionSucursal], [Id_HorarioSucursal], [Id_ProvinciaSucursal], [DireccionSucursal], REPLACE([URL_Imagen_Sucursal], '~', '') as [URL_Imagen_Sucursal] FROM [Sucursal]"></asp:SqlDataSource>
-    </form>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SucursalesConnectionString %>" SelectCommand="SELECT [Id_Provincia], [DescripcionProvincia] FROM [Provincia]"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:SucursalesConnectionString %>" SelectCommand="SELECT * FROM [Sucursal]"></asp:SqlDataSource>
+        <asp:ListView ID="ListView2" runat="server" DataKeyNames="Id_Sucursal" DataSourceID="SqlDataSource2" GroupItemCount="3">
+            
+            <EmptyDataTemplate>
+                <table runat="server" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;">
+                    <tr>
+                        <td>No data was returned.</td>
+                    </tr>
+                </table>
+            </EmptyDataTemplate>
+            <EmptyItemTemplate>
+<td runat="server" />
+            </EmptyItemTemplate>
+            <GroupTemplate>
+                <tr id="itemPlaceholderContainer" runat="server">
+                    <td id="itemPlaceholder" runat="server"></td>
+                </tr>
+            </GroupTemplate>
+            <ItemTemplate>
+                <td runat="server" style="background-color:#DCDCDC;color: #000000;">
+                    <asp:Label ID="NombreSucursalLabel" runat="server" Text='<%# Eval("NombreSucursal") %>' />
+                    <br />
+                    <asp:Image ID="Image1" ImageUrl='<%# Eval("URL_Imagen_Sucursal") %>' runat="server" />
+                    <br />
+                    <asp:Label ID="DescripcionSucursalLabel" runat="server" Text='<%# Eval("DescripcionSucursal") %>' />
+                    <br />
+                    <asp:Label ID="DireccionSucursalLabel" runat="server" Text='<%# Eval("DireccionSucursal") %>' />
+                    <br />
+                    <asp:Button ID="Button2" runat="server" Text="Seleccionar" CommandName="Select" CommandArgument='<%# Eval("Id_Sucursal") %>' OnCommand="Button2_Command" />
+
+                </td>
+            </ItemTemplate>
+            <LayoutTemplate>
+                <table runat="server">
+                    <tr runat="server">
+                        <td runat="server">
+                            <table id="groupPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
+                                <tr id="groupPlaceholder" runat="server">
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr runat="server">
+                        <td runat="server" style="text-align: center;background-color: #CCCCCC;font-family: Verdana, Arial, Helvetica, sans-serif;color: #000000;">
+                            <asp:DataPager ID="DataPager1" runat="server" PageSize="12">
+                                <Fields>
+                                    <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowLastPageButton="True" />
+                                </Fields>
+                            </asp:DataPager>
+                        </td>
+                    </tr>
+                </table>
+            </LayoutTemplate>
+        </asp:ListView>
+
+        </form>
     <script type="module" src="/Recursos/index.js"></script>
 </body>
 </html>

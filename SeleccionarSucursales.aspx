@@ -31,6 +31,7 @@
 <body>
     <form id="form1" class="centered-form" runat="server">
         <!-- Empezar aquí -->
+        <asp:GridView ID="GridView1" runat="server"></asp:GridView>
     </form>
     <script type="module" src="/Recursos/index.js"></script>
 </body>
