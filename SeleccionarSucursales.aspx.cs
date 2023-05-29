@@ -13,5 +13,15 @@ namespace TrabajoPractico7
 		{
 
 		}
-	}
+
+
+        protected void eventoSeleccionar_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "eventoSeleccionar")
+            {
+                SqlDataSource2.SelectCommand = "SELECT [NombreSucursal],[DescripcionSucursal],[URL_Imagen_Sucursal] FROM [Sucursal] WHERE [Id_ProvinciaSucursal] = '" + e.CommandArgument + "'";
+                           
+            }
+        }
+    }
 }

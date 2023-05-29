@@ -110,7 +110,7 @@
                 <td class="auto-style10">
                     <asp:DataList ID="DataList1" runat="server" DataKeyField="Id_Provincia" DataSourceID="SqlDataSource1">
                         <ItemTemplate>
-                            <asp:Button ID="Button2" runat="server" CommandArgument='<%# Eval("Id_Provincia") %>' Text='<%# Eval("DescripcionProvincia") %>' Width="100px" />
+                            <asp:Button ID="btnProvincia" runat="server" CommandArgument='<%# Eval("Id_Provincia") %>' Text='<%# Eval("DescripcionProvincia") %>' Width="100px" CommandName="eventoSeleccionar" OnCommand="eventoSeleccionar_Command" />
                             <br />
                             <br />
                         </ItemTemplate>
@@ -173,9 +173,9 @@
                         <ItemTemplate>
                             <td runat="server" style="background-color: #E0FFFF;color: #333333;">&nbsp;<asp:Label ID="NombreSucursalLabel" runat="server" Text='<%# Eval("NombreSucursal") %>' />
                                 <br />
-                                <asp:Label ID="URL_Imagen_SucursalLabel" runat="server" Text='<%# Eval("URL_Imagen_Sucursal") %>' />
+                                <asp:ImageButton ID="ImageButton1" runat="server" Height="150px" ImageUrl='<%# Eval("URL_Imagen_Sucursal") %>' Width="200px" />
                                 <br />
-                                <asp:Label ID="DescripcionSucursalLabel" runat="server" Text='<%# Eval("DescripcionSucursal") %>'></asp:Label>
+                                <asp:Label ID="DescripcionSucursalLabel" runat="server" Text='<%# Eval("DescripcionSucursal") %>' />
                                 <br />
                                 <asp:Button ID="Button3" runat="server" Text="Seleccionar" />
                                 <br />
@@ -219,10 +219,10 @@
             </tr>
             <tr>
                 <td class="auto-style17">
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BDSucursalesConnectionString %>" SelectCommand="SELECT [Id_Provincia], [DescripcionProvincia] FROM [Provincia]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=BDSucursales;Integrated Security=True" SelectCommand="SELECT [Id_Provincia], [DescripcionProvincia] FROM [Provincia]"></asp:SqlDataSource>
                 </td>
                 <td class="auto-style18">
-                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:BDSucursalesConnectionString %>" SelectCommand="SELECT [NombreSucursal], [DescripcionSucursal], [URL_Imagen_Sucursal] FROM [Sucursal]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=BDSucursales;Integrated Security=True" SelectCommand="SELECT [NombreSucursal], [DescripcionSucursal], [URL_Imagen_Sucursal] FROM [Sucursal]"></asp:SqlDataSource>
                 </td>
             </tr>
         </table>
