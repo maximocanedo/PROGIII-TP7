@@ -105,6 +105,7 @@ namespace TrabajoPractico7
             }
         }
 
+        // PARA BUSCAR POR NOMBRE DE SUCURSAL:
         protected void Button1_Click(object sender, EventArgs e)
         {
             string text = TextBox1.Text;
