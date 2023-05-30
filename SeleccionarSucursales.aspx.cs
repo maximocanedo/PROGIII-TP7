@@ -12,6 +12,57 @@ namespace TrabajoPractico7
 	public partial class SeleccionarSucursales1 : System.Web.UI.Page
 	{
         protected const string SucursalesSeleccionadas = "SucursalesSeleccionadas";
+        
+        protected DataTable crearTablaSeleccion()
+        {
+            // Guardo los items seleccionados en Session.
+            DataTable dt = new DataTable();
+            if (Session[SucursalesSeleccionadas] == null)
+            {
+                dt.Columns.Add(Sucursal.Columns.Id, typeof(string));
+                dt.Columns.Add(Sucursal.Columns.Nombre, typeof(string));
+                dt.Columns.Add(Sucursal.Columns.Descripcion, typeof(string));
+                Session[SucursalesSeleccionadas] = dt;
+            }
+            else
+            {
+                dt = (DataTable)Session[SucursalesSeleccionadas];
+            }
+            return dt;
+        }
+
+        protected bool registroRepetido(DataTable tabla, string ID)
+        {
+            // Verifico si el registro está repetido:
+            bool noExisteID = false;
+            foreach (System.Data.DataRow row in tabla.Rows)
+            {
+                if(row[Sucursal.Columns.Id].ToString() == ID)
+                {
+                    noExisteID = true;
+                    break;
+                }
+            }
+            return noExisteID;
+        }
+
+        protected void insertarFila(DataSet dataset, string ID)
+        {
+            DataTable tabla = crearTablaSeleccion();
+            DataTable registroTabla = dataset.Tables[0];
+            string nombre, descripcion;
+            foreach(DataRow row in registroTabla.Rows)
+            {
+                nombre = row[Sucursal.Columns.Nombre].ToString();
+                descripcion = row[Sucursal.Columns.Descripcion].ToString();
+                // bool noExisteID = registroRepetido(tabla, ID);
+                if(!registroRepetido(tabla, ID))
+                {
+                    tabla.Rows.Add(ID, nombre, descripcion);
+                }
+            }
+            Session[SucursalesSeleccionadas] = tabla;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
 		{
@@ -23,37 +74,24 @@ namespace TrabajoPractico7
         {
             if (e.CommandName == "eventoButton")
             {
-                // Guardo los items seleccionados en Session.
-                if (Session[SucursalesSeleccionadas] == null)
+                string ID_Sucursal = e.CommandArgument.ToString();
+                Connection conexion = new Connection(Connection.Database.BDSucursales);
+                Response res = conexion.FetchData("SELECT Id_Sucursal, NombreSucursal, DescripcionSucursal FROM Sucursal WHERE Id_Sucursal = " + ID_Sucursal);
+                DataSet dataSet = res.ObjectReturned as DataSet;
+                insertarFila(dataSet, ID_Sucursal);
+
+                /* Código que estaba intentando realizar antes:
+                DataTable dtSucursalesSel = new DataTable();
+                var suc = new Sucursal();
+                int id = int.Parse((string)e.CommandArgument);
+                if (suc.Id == id)
                 {
-                    DataTable dt = new DataTable();
-                    dt.Columns.Add(Sucursal.Columns.Nombre, typeof(string));
-                    dt.Columns.Add(Sucursal.Columns.Descripcion, typeof(string));
-                    dt.Columns.Add(Sucursal.Columns.Imagen, typeof(string));
-                    Session[SucursalesSeleccionadas] = dt;
+                    string nombre = suc.Nombre;
+                    string descripcion = suc.Descripcion;
+                    dtSucursalesSel.Rows.Add(id, nombre, descripcion);
+                    Session[SucursalesSeleccionadas] = dtSucursalesSel;
                 }
-                Session[SucursalesSeleccionadas] = e.CommandArgument.ToString();
-               // DataTable dtSucursalesSel = (DataTable)Session[SucursalesSeleccionadas];
-
-                /* REFERENCIA - BORRAR LUEGO
-                    //VERIFICACION DE PRODUCTO REPETIDO
-                    bool productoExistente = dtProductosSel.AsEnumerable()
-                        .Any(row => row.Field<string>(Producto.Columns.Id) == s_IDProducto);
-
-                    //SI NO SE REPITE, SE AGREGA
-                    if (!productoExistente) {
-                        DataRow newRow = dtProductosSel.NewRow();
-                        newRow[Producto.Columns.Id] = s_IDProducto;
-                        newRow[Producto.Columns.Nombre] = s_NombreProducto;
-                        newRow[Producto.Columns.IdProveedor] = s_IDProveedor;
-                        newRow[Producto.Columns.PrecioUnitario] = s_PrecioUnitario;
-                        dtProductosSel.Rows.Add(newRow);
-
-                        //CARGAR TABLA ACTUALIZADA A LA VARIABLE SESSION
-                        Session[TablaProductosSeleccionados] = dtProductosSel;
-                        ShowSnackbar($"Seleccionado: {s_NombreProducto}");
-                    }
-                */
+                 */
             }
         }
 
